@@ -88,10 +88,10 @@ class ECharts extends Component {
     this.webview.postMessage(jsBuilder.convertToPostMessageString(data));
   };
 
-  ID = () =>
+  ID = () => (
     `_${Math.random()
       .toString(36)
-      .substr(2, 9)}`;
+      .substr(2, 9)}`);
 
   setBackgroundColor = color => {
     const data = {
@@ -168,6 +168,7 @@ class ECharts extends Component {
           allowUniversalAccessFromFileURLs
           mixedContentMode="always"
           onLoadEnd={this.onLoadEnd}
+          style={{ backgroundColor: this.props.backgroundColor }}
         />
       </View>
     );
