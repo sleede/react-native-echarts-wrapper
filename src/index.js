@@ -21,6 +21,8 @@ class ECharts extends Component {
     legacyMode: false,
     canvas: false,
     onLoadEnd: () => {},
+    height: '100%',
+    width: '100%',
     backgroundColor: "rgba(0, 0, 0, 0)"
   };
 
@@ -41,12 +43,12 @@ class ECharts extends Component {
                 width: 100%;
                 margin: 0;
                 padding: 0;
-                background-color:rgba(0, 0, 0, 0);
+                background-color: ${props.backgroundColor};
                 }
                 #main {
-                height: 100%;
-                width: 100%;
-                background-color:rgba(0, 0, 0, 0);
+                height: ${props.height};
+                width: ${props.width};
+                background-color: ${props.backgroundColor};
                 }
             </style>
             
@@ -135,13 +137,6 @@ class ECharts extends Component {
     this.webview = ref;
   };
 
-  onLoadEnd = () => {
-    if (this.webview) {
-      this.webview.injectJavaScript(jsBuilder.getJavascriptSource(this.props));
-    }
-    this.props.onLoadEnd();
-  };
-
   render() {
     let source = {};
 
@@ -163,11 +158,12 @@ class ECharts extends Component {
           originWhitelist={["*"]}
           scrollEnabled={false}
           source={source}
+          injectedJavaScript={jsBuilder.getJavascriptSource(this.props)}
           onMessage={this.onMessage}
           allowFileAccess
           allowUniversalAccessFromFileURLs
           mixedContentMode="always"
-          onLoadEnd={this.onLoadEnd}
+          onLoadEnd={this.props.onLoadEnd}
           style={{ backgroundColor: this.props.backgroundColor }}
         />
       </View>
