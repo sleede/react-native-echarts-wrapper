@@ -157,6 +157,8 @@ class ECharts extends Component {
           ref={this.getWebViewRef}
           originWhitelist={["*"]}
           scrollEnabled={false}
+          overScrollMode="never"
+          bounces={false}
           source={source}
           injectedJavaScript={jsBuilder.getJavascriptSource(this.props)}
           onMessage={this.onMessage}
