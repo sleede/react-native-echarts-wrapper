@@ -21,8 +21,6 @@ class ECharts extends Component {
     legacyMode: false,
     canvas: false,
     onLoadEnd: () => {},
-    height: '100%',
-    width: '100%',
     backgroundColor: "rgba(0, 0, 0, 0)"
   };
 
@@ -43,12 +41,12 @@ class ECharts extends Component {
                 width: 100%;
                 margin: 0;
                 padding: 0;
-                background-color: ${props.backgroundColor};
+                background-color:${this.props.backgroundColor};
                 }
                 #main {
-                height: ${props.height};
-                width: ${props.width};
-                background-color: ${props.backgroundColor};
+                height: 100%;
+                width: 100%;
+                background-color:${this.props.backgroundColor};
                 }
             </style>
             
@@ -57,8 +55,8 @@ class ECharts extends Component {
             </script>
         </head>
 
-        <body>
-            <div id="main">
+        <body style="background-color:${this.props.backgroundColor}">
+            <div id="main" style="background-color:${this.props.backgroundColor}">
             </div>
         </body>
 
@@ -137,6 +135,13 @@ class ECharts extends Component {
     this.webview = ref;
   };
 
+  onLoadEnd = () => {
+    if (this.webview) {
+      this.webview.injectJavaScript(jsBuilder.getJavascriptSource(this.props));
+    }
+    this.props.onLoadEnd();
+  };
+
   render() {
     let source = {};
 
@@ -152,21 +157,19 @@ class ECharts extends Component {
     }
 
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, backgroundColor: this.props.backgroundColor }}>
         <WebView
           ref={this.getWebViewRef}
           originWhitelist={["*"]}
           scrollEnabled={false}
-          overScrollMode="never"
-          bounces={false}
           source={source}
-          injectedJavaScript={jsBuilder.getJavascriptSource(this.props)}
           onMessage={this.onMessage}
           allowFileAccess
           allowUniversalAccessFromFileURLs
           mixedContentMode="always"
-          onLoadEnd={this.props.onLoadEnd}
+          onLoadEnd={this.onLoadEnd}
           style={{ backgroundColor: this.props.backgroundColor }}
+          containerStyle={{ backgroundColor: this.props.backgroundColor }}
         />
       </View>
     );
