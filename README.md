@@ -356,6 +356,18 @@ const styles = StyleSheet.create({
 });
 ```
 
+## Update ECharts
+Download latest version Echarts minifier file
+https://cdnjs.com/libraries/echarts
+
+replace special characters
+\ => \\
+" => \*
+$ => \$
+& => \&
+remove all comment bloc
+
+
 ## [2.0.0] - Thursday, 03.October 2019
 
 ### Breaking Changes
