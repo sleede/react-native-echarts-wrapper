@@ -358,13 +358,18 @@ const styles = StyleSheet.create({
 
 ## Update ECharts
 Download latest version Echarts minifier file
-https://cdnjs.com/libraries/echarts
+https://github.com/apache/echarts/tree/master/dist
 
 replace special characters
+
 \ => \\
-" => \*
+
+" => \"
+
 $ => \$
+
 & => \&
+
 remove all comment bloc
 
 
